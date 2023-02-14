@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймер</title>
+</head>
+<style>
+    .taimer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+
+    }
+
+    .taimer-block {
+        width: 700px;
+        height: 300px;
+        background: rgb(107, 179, 49);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+        border-radius: 30px;
+    }
+
+    .taimer-min,
+    .taimer-sec {
+        height: 100px;
+        width: 100px;
+        background: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 70px;
+        padding: 20px;
+        font-family: Arial;
+        border-radius: 30px;
+    }
+
+    .taimer span {
+        font-size: 80px;
+        animation: anim 1.5s linear infinite;
+    }
+
+    @keyframes anim {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .taimer-block {
+            width: 100%;
+            height: 300px;
+            gap: 10px;
+            border-radius: 30px;
+        }
+
+        .taimer-min,
+        .taimer-sec {
+            height: 70px;
+            width: 70px;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            padding: 20px;
+            font-family: Arial;
+            border-radius: 30px;
+        }
+
+        .taimer span {
+            font-size: 80px;
+            animation: anim 1.5s linear infinite;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="taimer">
+        <div class="taimer-block">
+            <div class="taimer-min"></div>
+            <span>:</span>
+            <div class="taimer-sec"></div>
+        </div>
+    </div>
+
+
+
+    <script>
+        let taimer = document.querySelector('.taimer')
+        let taimerMin = document.querySelector('.taimer-min')
+        let taimerSec = document.querySelector('.taimer-sec')
+
+
+        if (!localStorage.Min && !localStorage.Sec) {
+            localStorage.setItem('Min', 0)
+            localStorage.setItem('Sec', 0)
+        } else if (localStorage.Sec == 'NaN') {
+            localStorage.setItem('Min', 0)
+            localStorage.setItem('Sec', 0)
+        }
+        function taimers() {
+            localStorage['Sec']
+            localStorage['Min']
+            localStorage['Sec'] -= 1
+            if (localStorage['Sec'] <= 0) {
+                localStorage.Min -= 1
+                localStorage.Sec = 59
+                if (localStorage['Min'] <= 0) {
+                    localStorage.Min = 59
+                }
+            }
+            taimerSec.innerHTML = Number(localStorage.getItem('Sec')) < 10 ? '0' + Number(localStorage.getItem('Sec')) : Number(localStorage.getItem('Sec'))
+            taimerMin.innerHTML = Number(localStorage.getItem('Min')) < 10 ? '0' + Number(localStorage.getItem('Min')) : Number(localStorage.getItem('Min'))
+        }
+        setInterval(taimers, 1000)
+    </script>
+</body>
+
+</html>
