@@ -93,7 +93,7 @@
 </style>
 
 <body>
-
+    <span class="day"></span>
     <div class="taimer">
         <div class="taimer-block">
             <div class="taimer-min"></div>
@@ -108,14 +108,18 @@
         let taimer = document.querySelector('.taimer')
         let taimerMin = document.querySelector('.taimer-min')
         let taimerSec = document.querySelector('.taimer-sec')
-
-
+        let day = document.queryselector('.day'),
+            days=0
+         day.innerHTML= days
         if (!localStorage.Min && !localStorage.Sec) {
             localStorage.setItem('Min', 0)
             localStorage.setItem('Sec', 0)
         } else if (localStorage.Sec == 'NaN') {
             localStorage.setItem('Min', 0)
             localStorage.setItem('Sec', 0)
+        }
+        if(localStorage.Min==59 && !localStorage.Sec){
+           days++
         }
         function taimers() {
             localStorage['Sec']
@@ -131,7 +135,7 @@
             taimerSec.innerHTML = Number(localStorage.getItem('Sec')) < 10 ? '0' + Number(localStorage.getItem('Sec')) : Number(localStorage.getItem('Sec'))
             taimerMin.innerHTML = Number(localStorage.getItem('Min')) < 10 ? '0' + Number(localStorage.getItem('Min')) : Number(localStorage.getItem('Min'))
         }
-        setInterval(taimers, 1000)
+        setInterval(taimers, 1)
     </script>
 </body>
 
